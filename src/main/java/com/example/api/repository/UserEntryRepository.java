@@ -6,4 +6,5 @@ import com.example.api.entity.UserEntry;
 
 public interface UserEntryRepository extends MongoRepository<UserEntry,ObjectId> {
     UserEntry findByUserName(String userName);
+    void deleteByUserName(String userName);
 }
