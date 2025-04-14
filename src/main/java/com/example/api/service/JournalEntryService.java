@@ -3,6 +3,8 @@ package com.example.api.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +29,7 @@ public class JournalEntryService {
             UserEntry user = userEntryService.findByUserName(userName);
             JournalEntry saved = journalEntryRepository.save(journalEntry);
             user.getJournalEntries().add(saved);
-            userEntryService.saveEntry(user);
+            userEntryService.saveUser(user);
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -45,12 +47,23 @@ public class JournalEntryService {
         return journalEntryRepository.findById(Id);
     }
 
-    public void deleteByID(ObjectId id, String userName){
-    
-        UserEntry user = userEntryService.findByUserName(userName);
-        user.getJournalEntries().removeIf(x->x.getId().equals(id));
-        userEntryService.saveEntry(user);
-        journalEntryRepository.deleteById(id);
+    public boolean deleteByID(ObjectId id, String userName){
+        boolean removed = false;
+        try{
+            UserEntry user = userEntryService.findByUserName(userName);
+            removed = user.getJournalEntries().removeIf(x->x.getId().equals(id));
+            if(removed){
+                userEntryService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        }catch(Exception e){
+            throw new RuntimeException("An error occurred while deleting the entry",e);
+        }
+        return removed;
         
+    }
+
+    public List<JournalEntry> findByUserName(String userName){
+    
     }
 }

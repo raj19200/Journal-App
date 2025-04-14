@@ -18,6 +18,6 @@ public class PublicConroller {
 
     @PostMapping("/create-user")
     public void createUser(@RequestBody UserEntry user) {
-        userEntryService.saveEntry(user);
+        userEntryService.saveNewUser(user);
     }
 }
