@@ -2,9 +2,6 @@ package com.example.api.service;
 
 import java.util.List;
 import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,7 +60,7 @@ public class JournalEntryService {
         
     }
 
-    public List<JournalEntry> findByUserName(String userName){
+    // public List<JournalEntry> findByUserName(String userName){
     
-    }
+    // }
 }
