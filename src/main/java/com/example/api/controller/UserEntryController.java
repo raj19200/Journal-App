@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.api.apiResponse.WeatherResponse;
 import com.example.api.entity.UserEntry;
 import com.example.api.repository.UserEntryRepository;
 import com.example.api.service.UserEntryService;
+import com.example.api.service.WeatherService;
+
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -26,6 +32,9 @@ public class UserEntryController {
 
     @Autowired
     private UserEntryRepository userEntryRepository;
+
+    @Autowired
+    private WeatherService weatherService;
     // @GetMapping("/")
     // public List<UserEntry> getAllUser(){
     //     return userEntryService.getAll();
@@ -61,5 +70,17 @@ public class UserEntryController {
         userEntryRepository.deleteByUserName(authentication.getName());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping
+    public ResponseEntity<?> greetings() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+        WeatherResponse weatherResponse= weatherService.getWeather("windsor");
+        String greetings="";
+        if(weatherResponse!=null){
+            greetings = " , Weather feels like "+ weatherResponse.getCurrent().getFeelslike();
+        }
+        return new ResponseEntity<>("Hi..."+ authentication.getName() + greetings, HttpStatus.OK);
+    }
+    
 
 }
