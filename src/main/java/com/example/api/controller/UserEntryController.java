@@ -19,6 +19,8 @@ import com.example.api.service.WeatherService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 
@@ -79,7 +81,6 @@ public class UserEntryController {
             greetings = " , Weather feels like "+ weatherResponse.getCurrent().getFeelslike();
         }
         return new ResponseEntity<>("Hi..."+ authentication.getName() + greetings, HttpStatus.OK);
-    }
-    
+    }    
 
 }
