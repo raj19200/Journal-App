@@ -19,8 +19,6 @@ import com.example.api.service.WeatherService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
 
 
 
@@ -36,20 +34,6 @@ public class UserEntryController {
 
     @Autowired
     private WeatherService weatherService;
-    // @GetMapping("/")
-    // public List<UserEntry> getAllUser(){
-    //     return userEntryService.getAll();
-    // }
-
-    // @PostMapping("/")
-    // public void createUser(@RequestBody UserEntry user) {
-    //     userEntryService.saveEntry(user);
-    // }
-
-    // @GetMapping("/id/{myId}")
-    // public Optional<UserEntry> getUserById(@PathVariable ObjectId myId){
-    //     return userEntryService.getByID(myId);
-    // }
 
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody UserEntry userEntry){
